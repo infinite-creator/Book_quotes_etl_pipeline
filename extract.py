@@ -1,17 +1,32 @@
 import logging
-import requests 
+import requests
+import time 
 from bs4 import BeautifulSoup
 from config import BASE_URL
+
+def fetch_with_retries(url:str, retries:int = 3, delay:int = 2):
+    for attempt in range(1, retries + 1):
+        try:
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()  # Check if the request was successful
+            return response
+        except requests.exceptions.RequestException as e:
+            logging.warning(f"Attempt {attempt + 1} failed for {url}: {e}")
+            
+            if attempt < retries - 1:
+                sleep_time = delay * (2 ** attempt)  # Exponential backoff
+                logging.info(f"Retrying in {sleep_time} seconds...")
+                time.sleep(sleep_time)
+            else:
+                logging.error(f"All {retries} attempts failed for {url}.")
+                return None
 
 def extract_quotes(page):
     url = BASE_URL.format(page)
     
-    try:
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()  # Check if the request was successful
-    except requests.exceptions.RequestException as e:
-        logging.error(f"Request failed for {url}: {e}")
-        return []
+    response = fetch_with_retries(url)
+    if not response:
+        return []   
 
     soup = BeautifulSoup(response.text, "html.parser")
     quote_blocks = soup.find_all("div", class_="quote")

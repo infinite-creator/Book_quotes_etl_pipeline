@@ -1,16 +1,14 @@
 from pathlib import Path
 from config import CSV_FILE, OUTPUT_DIR, RAW_JSON_FILE, SQLITE_DB
 from extract import extract_all_quotes
+from logger_config import log_run_indicator, set_logger
 from transform import transform_quotes
 from load import load_to_csv, load_to_sqlite
 import logging 
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', handlers=[
-    logging.FileHandler("etl_pipeline.log"),
-    logging.StreamHandler()
-])
-
 def main():
+    set_logger()
+    log_run_indicator("START")
     output_dir = Path(OUTPUT_DIR)
     output_dir.mkdir(exist_ok=True)
     
@@ -34,6 +32,7 @@ def main():
     logging.info("Quotes loaded to SQLite database.")
     
     logging.info("ETL pipeline completed successfully.")
+    log_run_indicator("END")
     
 if(__name__ == "__main__"):
     main()
