@@ -1,37 +1,47 @@
 from pathlib import Path
-from config import CSV_FILE, OUTPUT_DIR, RAW_JSON_FILE, SQLITE_DB
-from extract import extract_all_quotes
-from logger_config import log_run_indicator, set_logger
-from transform import transform_quotes
-from load import load_to_csv, load_to_sqlite
-import logging 
+
+from pipeline.extract import extract_all_quotes
+from pipeline.transform import transform_quotes
+from pipeline.load import load_to_csv, load_to_sqlite, load_raw_data_to_json
+
+from config.settings import CSV_FILE, SQLITE_DB, RAW_JSON_FILE
+from config.logger_config import log_run_indicator, set_logger
+from config.cli import arg_parser
+
+from models.paths import OutputPaths
 
 def main():
+    args = arg_parser()
+
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(exist_ok=True)
+
+    paths = OutputPaths(
+        json = output_dir / RAW_JSON_FILE,
+        csv = output_dir / CSV_FILE,
+        db = output_dir / SQLITE_DB
+    )
+
     set_logger()
     log_run_indicator("START")
-    output_dir = Path(OUTPUT_DIR)
-    output_dir.mkdir(exist_ok=True)
-    
-    logging.info("Starting ETL pipeline...")
     
     raw_quotes = extract_all_quotes()
-    logging.info(f"Extracted {len(raw_quotes)} quotes.")
     
-    with open(RAW_JSON_FILE, "w", encoding="utf-8") as f:
-        import json
-        json.dump(raw_quotes, f, ensure_ascii=False, indent=2)
-    logging.info("Raw quotes saved to JSON.")
+    #if --save-raw arg passed, load raw data to json
+    if args.save_raw:
+        load_raw_data_to_json(raw_quotes, paths.json)
     
+
     transformed_quotes = transform_quotes(raw_quotes)
-    logging.info(f"Transformed {len(transformed_quotes)} unique quotes.")
+
+    #Loading to CSV if step is not skipped 
+    if not args.skip_csv:
+        load_to_csv(transformed_quotes, paths.csv)
     
-    load_to_csv(transformed_quotes, CSV_FILE)
-    logging.info("Quotes loaded to CSV.")
+    #Writing to db if step is not skipped
+    if not args.skip_db:
+        load_to_sqlite(transformed_quotes, paths.db)
     
-    load_to_sqlite(transformed_quotes, SQLITE_DB)
-    logging.info("Quotes loaded to SQLite database.")
-    
-    logging.info("ETL pipeline completed successfully.")
     log_run_indicator("END")
     
 if(__name__ == "__main__"):

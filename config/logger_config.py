@@ -2,7 +2,7 @@ from datetime import datetime
 import logging
 from pathlib import Path
 
-from config import LOG_DIR, LOG_FILE
+from config.settings import LOG_DIR, LOG_FILE
 
 def set_logger() -> None:
     Path(LOG_DIR).mkdir(parents=True, exist_ok=True)

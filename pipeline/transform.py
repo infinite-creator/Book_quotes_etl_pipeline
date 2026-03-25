@@ -1,3 +1,5 @@
+import logging 
+
 def is_valid_quote(quote: dict) -> bool:
     if not quote.get("quote") or not quote.get("author"):
         return False
@@ -28,5 +30,7 @@ def transform_quotes(quotes: list[dict]) -> list[dict]:
             "tags": tags
         }
         transformed_quotes.append(transformed_quote)
+    
+    logging.info(f"Transformed {len(transformed_quotes)} unique quotes.")
         
     return transformed_quotes

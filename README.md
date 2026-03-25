@@ -9,6 +9,14 @@ This project is a small ETL pipeline built in Python
 - Remove dupliocate quotes
 - Loads the final data into CSV and SQLite
 
+## Usage 
+Run full pipeline: ``python main.py``
+Run with raw data saved: ``python main.py --save-raw``
+Custom output directory("output" by default): ``python main.py --output-dir <name>``
+Skip CSV file creation: ``python main.py --skip-csv``
+Skip writing into SQLite DB file: ``python main.py --skip-db``
+
+
 ## Tech Stack
 
 - Python
@@ -17,8 +25,3 @@ This project is a small ETL pipeline built in Python
 - pandas
 - sqlite
 
-## How to run
-
-```bash
-python main.py
-```

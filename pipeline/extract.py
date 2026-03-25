@@ -1,8 +1,10 @@
 import logging
 import requests
 import time 
+
 from bs4 import BeautifulSoup
-from config import BASE_URL
+
+from config.settings import BASE_URL
 
 def fetch_with_retries(url:str, retries:int = 3, delay:int = 2):
     for attempt in range(1, retries + 1):
@@ -60,4 +62,5 @@ def extract_all_quotes() -> list[dict]:
         all_quotes.extend(quotes)
         page += 1
     
+    logging.info(f"Extracted {len(all_quotes)} quotes.") 
     return all_quotes
