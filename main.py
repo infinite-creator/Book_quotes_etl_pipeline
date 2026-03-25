@@ -1,14 +1,14 @@
 from pathlib import Path
 
-from pipeline.extract import extract_all_quotes
-from pipeline.transform import transform_quotes
-from pipeline.load import load_to_csv, load_to_sqlite, load_raw_data_to_json
+from app.pipeline.extract import extract_all_quotes
+from app.pipeline.transform import transform_quotes
+from app.pipeline.load import load_to_csv, load_to_sqlite, load_raw_data_to_json
 
-from config.settings import CSV_FILE, SQLITE_DB, RAW_JSON_FILE
-from config.logger_config import log_run_indicator, set_logger
-from config.cli import arg_parser
+from app.config.settings import CSV_FILE, SQLITE_DB, RAW_JSON_FILE
+from app.config.logger_config import log_run_indicator, set_logger
+from app.config.cli import arg_parser
 
-from models.paths import OutputPaths
+from app.models.paths import OutputPaths
 
 def main():
     args = arg_parser()
