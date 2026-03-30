@@ -5,4 +5,3 @@ from pathlib import Path
 class OutputPaths:
     json: Path
     csv: Path
-    db: Path

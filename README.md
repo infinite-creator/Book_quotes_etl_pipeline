@@ -1,21 +1,39 @@
 # Quotes ETL Pipeline
 
-This project is a small ETL pipeline built in Python
+This project is a small ETL pipeline built in Python.
 
 ## What it does
 
 - Extract quotes, authors, and tags from quotes.toscrape.com
-- Transforms and clean data
-- Remove dupliocate quotes
+- Transform and clean data
+- Remove duplicate quotes
 - Loads the final data into CSV and SQLite
 
-## Usage 
-Run full pipeline: ``python main.py``
-Run with raw data saved: ``python main.py --save-raw``
-Custom output directory("output" by default): ``python main.py --output-dir <name>``
-Skip CSV file creation: ``python main.py --skip-csv``
-Skip writing into SQLite DB file: ``python main.py --skip-db``
+## Setup
 
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+Run the ETL pipeline:
+
+```bash
+python main.py
+python main.py --save-raw
+python main.py --output-dir custom-output
+python main.py --skip-csv
+python main.py --skip-db
+```
+
+Run the Streamlit dashboard:
+
+```bash
+streamlit run app/main.py
+```
 
 ## Tech Stack
 
@@ -23,5 +41,4 @@ Skip writing into SQLite DB file: ``python main.py --skip-db``
 - BeautifulSoup
 - requests
 - pandas
-- sqlite
-
+- SQLite
