@@ -4,7 +4,7 @@ import time
 
 from bs4 import BeautifulSoup
 
-from config.settings import BASE_URL
+from book_quotes_etl.config.settings import BASE_URL
 
 def fetch_with_retries(url:str, retries:int = 3, delay:int = 2):
     for attempt in range(1, retries + 1):

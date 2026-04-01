@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from config.settings import OUTPUT_DIR
+from book_quotes_etl.config.settings import OUTPUT_DIR
 
 
 def build_parser():

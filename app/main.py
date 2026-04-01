@@ -9,8 +9,8 @@ if __package__ in {None, ""}:
 import pandas as pd
 import streamlit as st
 
-from db.database import get_connection
-from services.job.job_service import run_etl_job
+from book_quotes_etl.db.database import get_connection
+from book_quotes_etl.services.job.job_service import run_etl_job
 
 
 def load_dashboard_data():

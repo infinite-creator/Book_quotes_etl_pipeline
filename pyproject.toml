@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "book-quotes-etl"
+version = "1.0.0"
+description = "Extract, transform, and load quotes from quotes.toscrape.com"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Jana Kortelova}]
+
+dependencies = [
+    "beautifulsoup4>=4.14.3",
+    "requests>=2.32.5",
+    "pandas>=2.3.0",
+    "streamlit>=1.55.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+
+[project.scripts]
+quotes-etl = "book_quotes_etl.config.cli:arg_parser"
+
+[tool.setuptools]
+packages = ["book_quotes_etl"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+book_quotes_etl = ["py.typed"]

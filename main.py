@@ -1,5 +1,5 @@
-from config.cli import parse_cli_args
-from pipeline.orchestrator import run_pipeline
+from book_quotes_etl.config.cli import parse_cli_args
+from book_quotes_etl.pipeline.orchestrator import run_pipeline
 
 
 if __name__ == "__main__":

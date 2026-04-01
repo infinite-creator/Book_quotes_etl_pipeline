@@ -1,7 +1,7 @@
 import sqlite3
 
-from config.settings import SQLITE_DB
-from db.models import create_tables
+from book_quotes_etl.config.settings import SQLITE_DB
+from book_quotes_etl.db.models import create_tables
 
 
 def get_connection():

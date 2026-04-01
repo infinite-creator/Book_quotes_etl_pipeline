@@ -11,3 +11,7 @@ soupsieve==2.8.3
 streamlit==1.55.0
 typing_extensions==4.15.0
 urllib3==2.6.3
+
+# Development dependencies
+pytest>=7.0.0
+pytest-cov>=4.0.0

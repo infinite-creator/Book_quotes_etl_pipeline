@@ -1,7 +1,7 @@
 from datetime import datetime
 import logging
 
-from config.settings import LOG_DIR, LOG_PATH
+from book_quotes_etl.config.settings import LOG_DIR, LOG_PATH
 
 def set_logger() -> None:
     LOG_DIR.mkdir(parents=True, exist_ok=True)

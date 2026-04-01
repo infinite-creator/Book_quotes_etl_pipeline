@@ -1,8 +1,8 @@
 from contextlib import closing
 from datetime import datetime
 
-from db.database import get_connection
-from pipeline.orchestrator import run_pipeline
+from book_quotes_etl.db.database import get_connection
+from book_quotes_etl.pipeline.orchestrator import run_pipeline
 
 
 def create_job():
